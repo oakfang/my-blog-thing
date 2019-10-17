@@ -1,50 +1,13 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { Flex } from 'reflexbox';
-import { Editor, convertToRaw, EditorState, RichUtils } from 'draft-js';
+import { Editor, convertToRaw } from 'draft-js';
 
 import { Avatar } from 'ui/Avatar';
 import { TextBubble } from 'ui/TextBubble';
 import { useUser } from 'providers/user';
-import { helloDecorator } from 'decorators/hello';
-
-function useEditor() {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const handleKeyCommand = useCallback((command, editorState) => {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-    if (newState) {
-      setEditorState(newState);
-      return 'handled';
-    }
-    return 'not-handled';
-  }, []);
-  const reset = useCallback(() => {
-    setEditorState(EditorState.createEmpty());
-  }, []);
-  const hasText = useMemo(
-    () =>
-      !!editorState
-        .getCurrentContent()
-        .getPlainText()
-        .replace(/\s/g, '').length,
-    [editorState]
-  );
-  const onChange = useCallback(editorState => {
-    setEditorState(
-      EditorState.set(editorState, {
-        decorator: helloDecorator,
-      })
-    );
-  }, []);
-  return {
-    reset,
-    hasText,
-    editorState,
-    handleKeyCommand,
-    onChange,
-  };
-}
+import { useEditor } from 'ui/CommentBox/use-editor';
 
 const Container = styled(Flex).attrs({
   width: '100%',
@@ -70,7 +33,7 @@ const Container = styled(Flex).attrs({
 
 export function CommentEditor({ addComment }) {
   const user = useUser();
-  const { reset, hasText, ...editor } = useEditor();
+  const { sentiment, reset, hasText, ...editor } = useEditor();
   const onAddComment = () => {
     const content = editor.editorState.getCurrentContent();
     addComment(user, convertToRaw(content));
@@ -85,7 +48,7 @@ export function CommentEditor({ addComment }) {
       <Button
         variant="contained"
         color="primary"
-        disabled={!hasText}
+        disabled={!hasText || sentiment.score < 0}
         onClick={onAddComment}
       >
         Comment
