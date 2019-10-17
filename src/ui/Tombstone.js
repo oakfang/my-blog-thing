@@ -1,6 +1,10 @@
 import React from 'react';
-import { Instagram } from 'react-content-loader';
+import { Instagram, BulletList } from 'react-content-loader';
 
-export function Tombstone(props) {
+export function PostTombstone(props) {
   return <Instagram {...props} />;
+}
+
+export function CommentsTombstone(props) {
+  return <BulletList {...props} />;
 }

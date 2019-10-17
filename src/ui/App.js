@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Typography, AppBar, Toolbar } from '@material-ui/core';
 
 import { usePosts } from 'api';
-import { Tombstone } from 'ui/Tombstone';
+import { PostTombstone } from 'ui/Tombstone';
 import { PostList } from 'ui/PostList';
 
 export function App() {
@@ -17,7 +17,7 @@ export function App() {
         </Toolbar>
       </AppBar>
       <Container fixed>
-        {posts ? <PostList posts={posts} /> : <Tombstone />}
+        {posts ? <PostList posts={posts} /> : <PostTombstone />}
       </Container>
     </div>
   );

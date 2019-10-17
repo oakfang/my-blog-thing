@@ -4,11 +4,12 @@ import { Typography } from '@material-ui/core';
 
 import { Avatar } from 'ui/Avatar';
 import { FormattedDate } from 'ui/FormattedDate';
+import { CommentBox } from 'ui/CommentBox';
 import { PostBody } from './PostBody';
 
 export function Post({ post }) {
   return (
-    <Flex flexDirection="column" py="10px">
+    <Flex flexDirection="column" py="10px" mb="100px">
       <Flex alignItems="center">
         <Avatar size={150} email={post.author} />
         <Box ml="60px">
@@ -19,6 +20,9 @@ export function Post({ post }) {
         </Box>
       </Flex>
       <PostBody body={post.body} />
+      <Box mt="50px">
+        <CommentBox postId={post.id} />
+      </Box>
     </Flex>
   );
 }
