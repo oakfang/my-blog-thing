@@ -7,6 +7,7 @@ import { Editor, convertToRaw, EditorState, RichUtils } from 'draft-js';
 import { Avatar } from 'ui/Avatar';
 import { TextBubble } from 'ui/TextBubble';
 import { useUser } from 'providers/user';
+import { helloDecorator } from 'decorators/hello';
 
 function useEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -29,12 +30,19 @@ function useEditor() {
         .replace(/\s/g, '').length,
     [editorState]
   );
+  const onChange = useCallback(editorState => {
+    setEditorState(
+      EditorState.set(editorState, {
+        decorator: helloDecorator,
+      })
+    );
+  }, []);
   return {
     reset,
     hasText,
     editorState,
     handleKeyCommand,
-    onChange: setEditorState,
+    onChange,
   };
 }
 
