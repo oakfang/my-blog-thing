@@ -33,7 +33,7 @@ const Container = styled(Flex).attrs({
 
 export function CommentEditor({ addComment }) {
   const user = useUser();
-  const { sentiment, reset, hasText, ...editor } = useEditor();
+  const { reset, hasText, ...editor } = useEditor();
   const onAddComment = () => {
     const content = editor.editorState.getCurrentContent();
     addComment(user, convertToRaw(content));
@@ -48,7 +48,7 @@ export function CommentEditor({ addComment }) {
       <Button
         variant="contained"
         color="primary"
-        disabled={!hasText || sentiment.score < 0}
+        disabled={!hasText}
         onClick={onAddComment}
       >
         Comment

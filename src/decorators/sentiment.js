@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CompositeDecorator } from 'draft-js';
-import { decorateRegex } from './utils';
+import createRegExDecorator from 'draft-js-regex-decorator';
 
 const PositiveWord = styled.span`
   color: green;
@@ -21,14 +21,10 @@ export const getSentimentDecorator = sentiment => {
   const negativeWordsRegex = getWordListRegex(sentiment.negative);
   return new CompositeDecorator(
     [
-      positiveWordsRegex && {
-        component: PositiveWord,
-        strategy: decorateRegex(positiveWordsRegex),
-      },
-      negativeWordsRegex && {
-        component: NegativeWord,
-        strategy: decorateRegex(negativeWordsRegex),
-      },
+      positiveWordsRegex &&
+        createRegExDecorator(positiveWordsRegex, PositiveWord),
+      negativeWordsRegex &&
+        createRegExDecorator(negativeWordsRegex, NegativeWord),
     ].filter(Boolean)
   );
 };
