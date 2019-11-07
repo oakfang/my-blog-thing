@@ -8,7 +8,9 @@ import { hasNonWhitespace } from 'utils';
 import { Avatar } from 'ui/Avatar';
 import { TextBubble } from 'ui/TextBubble';
 import { useUser } from 'providers/user';
-import { helloDecorator } from 'decorators/hello';
+// import { helloDecorator } from 'decorators/hello';
+import { sentimentDecorator } from 'decorators/sentiment';
+import { useSentiment } from 'hooks/use-sentiment';
 
 const Container = styled(Flex).attrs({
   width: '100%',
@@ -43,13 +45,13 @@ function useEditor() {
     return 'not-handled';
   };
   const reset = () => setEditorState(EditorState.createEmpty());
-  const hasText = hasNonWhitespace(
-    editorState.getCurrentContent().getPlainText()
-  );
+  const currentText = editorState.getCurrentContent().getPlainText();
+  const hasText = hasNonWhitespace(currentText);
+  const sentiment = useSentiment(currentText);
   const onChange = editorState => {
     setEditorState(
       EditorState.set(editorState, {
-        decorator: helloDecorator,
+        decorator: sentimentDecorator,
       })
     );
   };
@@ -59,12 +61,13 @@ function useEditor() {
     editorState,
     handleKeyCommand,
     onChange,
+    sentiment,
   };
 }
 
 export function CommentEditor({ addComment }) {
   const user = useUser();
-  const { reset, hasText, ...editor } = useEditor();
+  const { sentiment, reset, hasText, ...editor } = useEditor();
   const onAddComment = () => {
     const content = editor.editorState.getCurrentContent();
     addComment(user, convertToRaw(content));
@@ -79,7 +82,7 @@ export function CommentEditor({ addComment }) {
       <Button
         variant="contained"
         color="primary"
-        disabled={!hasText}
+        disabled={!hasText || sentiment.score < 0}
         onClick={onAddComment}
       >
         Comment
