@@ -8,7 +8,7 @@ import { hasNonWhitespace } from 'utils';
 import { Avatar } from 'ui/Avatar';
 import { TextBubble } from 'ui/TextBubble';
 import { useUser } from 'providers/user';
-import { helloDecorator } from 'decorators/hello';
+import decorator from 'decorators';
 
 const Container = styled(Flex).attrs({
   width: '100%',
@@ -34,6 +34,7 @@ const Container = styled(Flex).attrs({
 
 function useEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const currentText = editorState.getCurrentContent().getPlainText();
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -43,13 +44,11 @@ function useEditor() {
     return 'not-handled';
   };
   const reset = () => setEditorState(EditorState.createEmpty());
-  const hasText = hasNonWhitespace(
-    editorState.getCurrentContent().getPlainText()
-  );
+  const hasText = hasNonWhitespace(currentText);
   const onChange = editorState => {
     setEditorState(
       EditorState.set(editorState, {
-        decorator: helloDecorator,
+        decorator,
       })
     );
   };
