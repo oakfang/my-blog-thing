@@ -1,58 +1,5 @@
 {
-  "comments": [
-    {
-      "postId": 2,
-      "content": {
-        "blocks": [
-          {
-            "key": "76skf",
-            "text": "Hello, WORLD!",
-            "type": "unstyled",
-            "depth": 0,
-            "inlineStyleRanges": [
-              {
-                "offset": 7,
-                "length": 6,
-                "style": "BOLD"
-              }
-            ],
-            "entityRanges": [],
-            "data": {}
-          }
-        ],
-        "entityMap": {}
-      },
-      "author": "example@example.com",
-      "posted": 1571308179294,
-      "id": 1
-    },
-    {
-      "postId": 2,
-      "content": {
-        "blocks": [
-          {
-            "key": "au06d",
-            "text": "hi y'all this is ",
-            "type": "unstyled",
-            "depth": 0,
-            "inlineStyleRanges": [
-              {
-                "offset": 9,
-                "length": 8,
-                "style": "BOLD"
-              }
-            ],
-            "entityRanges": [],
-            "data": {}
-          }
-        ],
-        "entityMap": {}
-      },
-      "author": "example@example.com",
-      "posted": 1574617541331,
-      "id": 2
-    }
-  ],
+  "comments": [],
   "posts": [
     {
       "id": 1,

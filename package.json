@@ -23,7 +23,7 @@
     "untrigger": "^0.2.0"
   },
   "scripts": {
-    "fe": "react-scripts start",
+    "fe": "PORT=5000 react-scripts start",
     "be": "json-server --watch db.json --port 4000",
     "start": "concurrently npm:be npm:fe",
     "build": "react-scripts build",
