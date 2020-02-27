@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import { useSentimentAnalysis } from 'untrigger'
 import { Flex } from 'reflexbox';
 import { Editor, convertToRaw, EditorState, RichUtils } from 'draft-js';
 
@@ -35,6 +36,7 @@ const Container = styled(Flex).attrs({
 function useEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const currentText = editorState.getCurrentContent().getPlainText();
+  const { score } = useSentimentAnalysis(currentText);
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -58,12 +60,13 @@ function useEditor() {
     editorState,
     handleKeyCommand,
     onChange,
+    score,
   };
 }
 
 export function CommentEditor({ addComment }) {
   const user = useUser();
-  const { reset, hasText, ...editor } = useEditor();
+  const { score, reset, hasText, ...editor } = useEditor();
   const onAddComment = () => {
     const content = editor.editorState.getCurrentContent();
     addComment(user, convertToRaw(content));
@@ -78,7 +81,7 @@ export function CommentEditor({ addComment }) {
       <Button
         variant="contained"
         color="primary"
-        disabled={!hasText}
+        disabled={!hasText || score < 0}
         onClick={onAddComment}
       >
         Comment

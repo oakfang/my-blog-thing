@@ -1934,6 +1934,11 @@ afinn-165@^1.0.3:
   resolved "https://registry.yarnpkg.com/afinn-165/-/afinn-165-1.0.3.tgz#3968346229659bad79f9655017087c1771cc9eb6"
   integrity sha512-LTwJcUGRzjQCR6uQCXMEUkoecezmWNjyWRjPm9pv0WlIYtLLaOnVsR1RvAdSMgOJPTFNlxS1IkfXxrkmV+gcyQ==
 
+afinn-165@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/afinn-165/-/afinn-165-1.0.4.tgz#3abf6b8922dd5db84d84e0abd155924381dd73a4"
+  integrity sha512-7+Wlx3BImrK0HiG6y3lU4xX7SpBPSSu8T9iguPMlaueRFxjbYwAQrp9lqZUuFikqKbd/en8lVREILvP2J80uJA==
+
 ajv-errors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"
@@ -3985,10 +3990,10 @@ draft-js-export-html@^1.4.1:
   dependencies:
     draft-js-utils "^1.4.0"
 
-draft-js-regex-decorator@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/draft-js-regex-decorator/-/draft-js-regex-decorator-0.1.1.tgz#80015190e0dbba76c89170156c9e022d6abde765"
-  integrity sha512-oZesYb37WH4iOGzYUvPb/I2Y9E/BLGx6N2HujHLqCdFgSIGMqwpC2E22d7b6sg4PnJTCs+QHPO84pcfxi7zH7w==
+draft-js-regex-decorator@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/draft-js-regex-decorator/-/draft-js-regex-decorator-0.3.0.tgz#5c04534fe4376d3e7a4b77492f967478fb8ee1a8"
+  integrity sha512-9mYeDz7K7KZtEb/0WjKnhyFILFFUkZMsljKj7K/zPIFHhXpfOjdQgI2XuppyTQjfjpLccSosYXsIbqG4ywTLvQ==
   dependencies:
     "@testing-library/react" "^9.3.2"
     "@types/draft-js" "^0.10.37"
@@ -10937,6 +10942,15 @@ unset-value@^1.0.0:
   dependencies:
     has-value "^0.3.1"
     isobject "^3.0.0"
+
+untrigger@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/untrigger/-/untrigger-0.2.0.tgz#5ef2f81a3ebb3820159c4e58497d8639337e73f7"
+  integrity sha512-z5mFrwqxImFq9VglzslesqTm7gdeLXGq1hNY9BG9tR4Rl8BfZXAa4cLy9e4l6xGKxlCB21vavSs7c5J1GPNcLw==
+  dependencies:
+    afinn-165 "^1.0.4"
+    draft-js-regex-decorator "^0.3.0"
+    sentiment "^5.0.2"
 
 upath@^1.1.1:
   version "1.2.0"

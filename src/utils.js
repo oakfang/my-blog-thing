@@ -4,7 +4,7 @@ const NON_WHITE_SPACE_CHAR = /\S/;
 
 export const hasNonWhitespace = text => NON_WHITE_SPACE_CHAR.test(text);
 
-const [positiveWords, negativeWords] = Object.entries(afinn165).reduce(
+export const [positiveWords, negativeWords] = Object.entries(afinn165).reduce(
   (categories, [word, score]) => {
     const [positiveWords, negativeWords] = categories;
     if (score > 0) {
@@ -18,10 +18,15 @@ const [positiveWords, negativeWords] = Object.entries(afinn165).reduce(
 );
 
 export const positiveRegex = new RegExp(
-  positiveWords.sort((a, b) => b.length - a.length).join('|'),
+  `(?:^|\\W)(${positiveWords
+    .sort((a, b) => b.length - a.length)
+    .join('|')})(?:\\W|$)`,
   'ig'
 );
+
 export const negativeRegex = new RegExp(
-  negativeWords.sort((a, b) => b.length - a.length).join('|'),
+  `(?:^|\\W)(${negativeWords
+    .sort((a, b) => b.length - a.length)
+    .join('|')})(?:\\W|$)`,
   'ig'
 );
