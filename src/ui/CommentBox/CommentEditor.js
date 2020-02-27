@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import { useSentimentAnalysis } from 'untrigger'
+import { useSentimentAnalysis } from 'untrigger';
 import { Flex } from 'reflexbox';
 import { Editor, convertToRaw, EditorState, RichUtils } from 'draft-js';
 
@@ -66,9 +66,16 @@ function useEditor() {
 
 export function CommentEditor({ addComment }) {
   const user = useUser();
-  const { score, reset, hasText, ...editor } = useEditor();
+  const {
+    score,
+    reset,
+    hasText,
+    editorState,
+    handleKeyCommand,
+    onChange,
+  } = useEditor();
   const onAddComment = () => {
-    const content = editor.editorState.getCurrentContent();
+    const content = editorState.getCurrentContent();
     addComment(user, convertToRaw(content));
     reset();
   };
@@ -76,7 +83,12 @@ export function CommentEditor({ addComment }) {
     <Container>
       <Avatar email={user} size={30} />
       <TextBubble flex={1}>
-        <Editor placeholder="What say you?" {...editor} />
+        <Editor
+          placeholder="What say you?"
+          editorState={editorState}
+          handleKeyCommand={handleKeyCommand}
+          onChange={onChange}
+        />
       </TextBubble>
       <Button
         variant="contained"
